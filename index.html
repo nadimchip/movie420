@@ -3,139 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieBox | বাংলা ডাবিং মুভি</title>
+    <title>MovieBox BD | বাংলা ডাবিং প্ল্যাটফর্ম</title>
     <style>
-        /* CSS - ডিজাইন */
+        /* --- CSS ডিজাইন --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
         body {
             background-color: #0f0f0f;
             color: white;
+            scroll-behavior: smooth;
         }
 
-        /* হেডার ডিজাইন */
+        /* হেডার */
         header {
-            padding: 20px 50px;
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            background: rgba(0, 0, 0, 0.9);
             position: fixed;
             width: 100%;
             z-index: 1000;
         }
 
         .logo {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: bold;
             color: #e50914;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
             margin-left: 20px;
-            font-size: 16px;
+            font-size: 15px;
+            transition: 0.3s;
         }
 
-        /* ব্যানার সেকশন */
+        nav a:hover { color: #e50914; }
+
+        /* ব্যানার */
         .banner {
-            height: 80vh;
-            background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.2)), 
-                        url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=2070&auto=format&fit=crop');
+            height: 70vh;
+            background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop');
             background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
-            padding: 0 50px;
+            padding: 0 5%;
         }
 
-        .banner-content h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
+        .banner-content h1 { font-size: 45px; margin-bottom: 15px; }
+        .banner-content p { font-size: 18px; max-width: 550px; margin-bottom: 25px; color: #ccc; }
+
+        /* ভিডিও প্লেয়ার সেকশন */
+        .player-section {
+            padding: 100px 5% 50px;
+            text-align: center;
+            background: #141414;
         }
 
-        .banner-content p {
-            font-size: 18px;
-            max-width: 600px;
-            margin-bottom: 30px;
-            color: #ccc;
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn-play { background-color: #e50914; color: white; }
-        .btn-play:hover { background-color: #ff0f1b; }
+        .btn-red { background: #e50914; color: white; }
+        .btn-green { background: #008000; color: white; }
+        .btn:hover { opacity: 0.8; transform: translateY(-2px); }
 
-        /* মুভি লিস্ট সেকশন */
-        .movie-section {
-            padding: 50px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            border-left: 4px solid #e50914;
-            padding-left: 10px;
-        }
+        /* মুভি গ্রিড */
+        .movie-section { padding: 50px 5%; }
+        .section-title { font-size: 24px; margin-bottom: 30px; border-left: 5px solid #e50914; padding-left: 15px; }
 
         .movie-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
         .movie-card {
             background: #1f1f1f;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s;
             position: relative;
+            transition: 0.4s;
+            cursor: pointer;
         }
 
-        .movie-card:hover {
-            transform: scale(1.05);
-        }
+        .movie-card:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3); }
+        .movie-card img { width: 100%; height: 300px; object-fit: cover; }
+        .badge { position: absolute; top: 10px; right: 10px; background: #008000; padding: 4px 10px; font-size: 12px; border-radius: 3px; font-weight: bold; }
+        .movie-info { padding: 15px; text-align: center; font-weight: bold; }
 
-        .movie-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
-
-        .movie-info {
-            padding: 10px;
-        }
-
-        .movie-title {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        /* ডাবিং ব্যাজ */
-        .badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #008000;
-            color: white;
-            padding: 3px 8px;
-            font-size: 12px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
+        footer { padding: 40px; text-align: center; color: #666; font-size: 14px; border-top: 1px solid #333; }
     </style>
 </head>
 <body>
@@ -144,62 +136,96 @@
         <div class="logo">MovieBox BD</div>
         <nav>
             <a href="#">হোম</a>
+            <a href="#player">প্লেয়ার</a>
             <a href="#">বাংলা ডাবিং</a>
-            <a href="#">সিরিজ</a>
-            <a href="#">অনুরোধ</a>
+            <a href="#">রিকোয়েস্ট</a>
         </nav>
     </header>
 
     <section class="banner">
         <div class="banner-content">
-            <h1>সেরা মুভি দেখুন <br> আপনার মাতৃভাষায়</h1>
-            <p>আমাদের সাইটে পাবেন বিশ্বের জনপ্রিয় সব মুভি এবং সিরিজের উচ্চমানের বাংলা ডাবিং। আজই দেখা শুরু করুন!</p>
-            <button class="btn btn-play">এখনই দেখুন</button>
+            <h1>সেরা মুভি দেখুন <br> বাংলা ডাবিংয়ে</h1>
+            <p>বিশ্বসেরা সিনেমাগুলো এখন আপনার নিজের ভাষায়। হাই-কোয়ালিটি অডিও এবং ভিডিওর সাথে উপভোগ করুন নতুন অভিজ্ঞতা।</p>
+            <a href="#player" class="btn btn-red" style="text-decoration: none; display: inline-block;">এখনই দেখুন</a>
         </div>
     </section>
 
+    <!-- ভিডিও প্লেয়ার ও ডাবিং কন্ট্রোল সেকশন -->
+    <section id="player" class="player-section">
+        <h2 class="section-title" style="border:none; text-align:center;">মুভি প্লেয়ার ও ডাবিং সুইচ</h2>
+        
+        <div class="video-container">
+            <!-- ভিডিও ট্যাগ -->
+            <video id="mainVideo" width="100%" poster="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                আপনার ব্রাউজারটি ভিডিও সাপোর্ট করে না।
+            </video>
+        </div>
+
+        <div class="controls">
+            <button onclick="playVideo()" class="btn btn-red">প্লে / পজ</button>
+            <button onclick="changeAudio('original')" class="btn" style="background:#444; color:white;">English Audio</button>
+            <button onclick="changeAudio('bangla')" class="btn btn-green">বাংলা ডাবিং (Auto Sync)</button>
+        </div>
+        <p id="status" style="margin-top: 15px; color: #aaa; font-style: italic;"></p>
+    </section>
+
+    <!-- মুভি কালেকশন -->
     <section class="movie-section">
-        <h2 class="section-title">সদ্য যুক্ত হওয়া বাংলা ডাবিং মুভি</h2>
+        <h2 class="section-title">জনপ্রিয় ডাবিং মুভি</h2>
         <div class="movie-grid">
-            
-            <!-- মুভি কার্ড ১ -->
             <div class="movie-card">
-                <span class="badge">বাংলা ডাবিং</span>
-                <img src="https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg" alt="Movie">
-                <div class="movie-info">
-                    <p class="movie-title">অ্যাভেঞ্জার্স: এন্ডগেম</p>
-                </div>
+                <span class="badge">বাংলা</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg" alt="Avengers">
+                <div class="movie-info">অ্যাভেঞ্জার্স: এন্ডগেম</div>
             </div>
-
-            <!-- মুভি কার্ড ২ -->
             <div class="movie-card">
-                <span class="badge">বাংলা ডাবিং</span>
-                <img src="https://m.media-amazon.com/images/M/MV5BMTM0MjUzNjkwMl5BMl5BanBnXkFtZTcwNjY0OTQyMw@@._V1_.jpg" alt="Movie">
-                <div class="movie-info">
-                    <p class="movie-title">ইনসেপশন</p>
-                </div>
+                <span class="badge">বাংলা</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" alt="Joker">
+                <div class="movie-info">জোকার (২০১৯)</div>
             </div>
-
-            <!-- মুভি কার্ড ৩ -->
             <div class="movie-card">
-                <span class="badge">বাংলা ডাবিং</span>
-                <img src="https://m.media-amazon.com/images/M/MV5BMjM2NTQ5Mzc2M15BMl5BanBnXkFtZTgwNTcxMDI2NTE@._V1_.jpg" alt="Movie">
-                <div class="movie-info">
-                    <p class="movie-title">দ্য উলফ অফ ওয়াল স্ট্রিট</p>
-                </div>
+                <span class="badge">বাংলা</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMTM0MjUzNjkwMl5BMl5BanBnXkFtZTcwNjY0OTQyMw@@._V1_.jpg" alt="Inception">
+                <div class="movie-info">ইনসেপশন</div>
             </div>
-
-            <!-- মুভি কার্ড ৪ -->
             <div class="movie-card">
-                <span class="badge">বাংলা ডাবিং</span>
-                <img src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg" alt="Movie">
-                <div class="movie-info">
-                    <p class="movie-title">জোকার</p>
-                </div>
+                <span class="badge">বাংলা</span>
+                <img src="https://m.media-amazon.com/images/M/MV5BMjM2NTQ5Mzc2M15BMl5BanBnXkFtZTgwNTcxMDI2NTE@._V1_.jpg" alt="Wolf">
+                <div class="movie-info">দ্য উলফ অফ ওয়াল স্ট্রিট</div>
             </div>
-
         </div>
     </section>
+
+    <footer>
+        &copy; 2026 MovieBox BD - সকল স্বত্ব সংরক্ষিত। <br>
+        এটি একটি ডেমো মুভি ডাবিং ওয়েবসাইট।
+    </footer>
+
+    <!-- --- JavaScript লজিক --- -->
+    <script>
+        const video = document.getElementById('mainVideo');
+        const status = document.getElementById('status');
+
+        function playVideo() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        function changeAudio(type) {
+            if(type === 'bangla') {
+                status.innerText = "সিস্টেম: বাংলা অডিও ট্র্যাক সিঙ্ক করা হচ্ছে... (ডেমো)";
+                status.style.color = "#00ff00";
+                // বাস্তবে এখানে অডিও ফাইল সোয়্যাপ করার কোড থাকবে
+            } else {
+                status.innerText = "সিস্টেম: অরিজিনাল অডিওতে ফিরে যাওয়া হচ্ছে।";
+                status.style.color = "#aaa";
+            }
+        }
+    </script>
 
 </body>
 </html>
