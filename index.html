@@ -3,58 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Cinema</title>
+    <title>আমার ভিডিও কালেকশন</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="overlay"></div>
-
     <header>
-        <div class="logo">আমার <span>ভিডিও</span> কালেকশন</div>
-        <p>মোবাইলের জায়গা খালি, স্মৃতি থাকুক এখানে।</p>
+        <div class="navbar">
+            <div class="logo">আমার<span>ভিডিও</span></div>
+            <div class="actions">
+                <button class="btn add-btn" onclick="openModal()">+ Add Video</button>
+                <button class="btn code-btn" onclick="openModal()">+ Add </> Code</button>
+            </div>
+        </div>
     </header>
 
-    <main class="gallery">
-        <!-- ভিডিও ১ -->
-        <div class="card">
-            <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="info">
-                <h3>পারিবারিক ভ্রমণের ভিডিও</h3>
-                <span>০৪ মে, ২০২৬</span>
-            </div>
-        </div>
-
-        <!-- ভিডিও ২ -->
-        <div class="card">
-            <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="info">
-                <h3>জন্মদিনের মুহূর্ত</h3>
-                <span>১০ এপ্রিল, ২০২৬</span>
-            </div>
-        </div>
-
-        <!-- ভিডিও ৩ -->
-        <div class="card">
-            <div class="video-box">
-                <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="info">
-                <h3>প্রিয় গানের কালেকশন</h3>
-                <span>১২ মার্চ, ২০২৬</span>
-            </div>
+    <main>
+        <div class="video-grid" id="videoGrid">
+            <!-- এখানে ভিডিওগুলো অটোমেটিক যোগ হবে -->
+            <p id="noVideoMsg">কোনো ভিডিও নেই। উপরের বাটন থেকে যোগ করুন।</p>
         </div>
     </main>
 
-    <footer>
-        <p>তৈরি করা হয়েছে নিজের জন্য &hearts;</p>
-    </footer>
+    <!-- ভিডিও যোগ করার ফর্ম (Modal) -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>নতুন ভিডিও যোগ করুন</h2>
+            <input type="text" id="videoTitle" placeholder="ভিডিওর শিরোনাম">
+            <textarea id="videoEmbed" placeholder="ভিডিওর এমবেড কোড (<iframe>) অথবা লিঙ্ক দিন"></textarea>
+            <button class="submit-btn" onclick="addNewVideo()">আপলোড করুন</button>
+        </div>
+    </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
