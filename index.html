@@ -3,160 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>প্রাইভেট ভিডিও হাব</title>ৎ
-    <style>
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #0b0e11; /* প্রিমিয়াম ডার্ক ব্যাকগ্রাউন্ড */
-    color: white;
-    font-family: 'Roboto', sans-serif;
-}
-
-/* নেভিগেশন বার */
-header {
-    background-color: #1a1d21;
-    padding: 15px 5%;
-    border-bottom: 2px solid #ff9000;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.logo span {
-    background-color: #ff9000;
-    color: black;
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 4px;
-}
-
-.btn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-.upload-btn { background-color: #ff9000; color: black; }
-.code-btn { background-color: #333; color: white; }
-
-/* ভিডিও গ্রিড লেআউট */
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 30px 5%;
-}
-
-.video-card {
-    background-color: #1a1d21;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s;
-    border: 1px solid #2a2d31;
-}
-
-.video-card:hover {
-    transform: scale(1.05);
-    border-color: #ff9000;
-}
-
-.video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-}
-
-.video-info {
-    padding: 12px;
-}
-
-.video-info h3 {
-    font-size: 16px;
-    color: #efefef;
-}
-
-/* পপ-আপ ফর্ম (Modal) */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.9);
-}
-
-.modal-content {
-    background-color: #1a1d21;
-    margin: 10% auto;
-    padding: 25px;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 12px;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    background: #0b0e11;
-    border: 1px solid #333;
-    color: white;
-    border-radius: 5px;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #ff9000;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
-.close {
-    float: right;
-    font-size: 30px;
-    cursor: pointer;
-    color: #999;
-}
-
-/* মোবাইলের জন্য রেসপনসিভ */
-@media (max-width: 600px) {
-    .logo { font-size: 20px; }
-    .btn { padding: 8px 10px; font-size: 12px; }
-}
-   </style>
-    <link rel="stylesheet" href="style.css">
+    <title>প্রাইভেট ভিডিও হাব</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b0e11;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        header {
+            background-color: #1a1d21;
+            padding: 15px 5%;
+            border-bottom: 2px solid #ff9000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            background-color: #ff9000;
+            color: black;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .upload-btn { background-color: #ff9000; color: black; }
+        .code-btn { background-color: #333; color: white; }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 30px 5%;
+        }
+
+        .video-card {
+            background-color: #1a1d21;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #2a2d31;
+        }
+
+        .video-card:hover {
+            transform: scale(1.05);
+            border-color: #ff9000;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .video-info {
+            padding: 12px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            background-color: #1a1d21;
+            margin: 10% auto;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #0b0e11;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff9000;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close {
+            float: right;
+            font-size: 30px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        @media (max-width: 600px) {
+            .logo { font-size: 20px; }
+            .btn { padding: 8px 10px; font-size: 12px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -172,14 +160,12 @@ input, textarea {
 
     <main class="content">
         <div class="video-grid" id="videoGrid">
-            <!-- এখানে ভিডিওগুলো প্রদর্শিত হবে -->
             <div id="placeholderText" style="grid-column: 1/-1; text-align: center; margin-top: 50px; color: #555;">
                 <h2>কোনো ভিডিও নেই! ওপরে বাটন ব্যবহার করে যোগ করুন।</h2>
             </div>
         </div>
     </main>
 
-    <!-- ভিডিও যোগ করার পপ-আপ (Modal) -->
     <div id="videoModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -190,56 +176,42 @@ input, textarea {
         </div>
     </div>
 
-    <script src="script.js"></script>
     <script>
-    // পপ-আপ ওপেন করা
-function openModal() {
-    document.getElementById("videoModal").style.display = "block";
-}
+        function openModal() {
+            document.getElementById("videoModal").style.display = "block";
+        }
 
-// পপ-আপ বন্ধ করা
-function closeModal() {
-    document.getElementById("videoModal").style.display = "none";
-}
+        function closeModal() {
+            document.getElementById("videoModal").style.display = "none";
+        }
 
-// ভিডিও যোগ করার মূল কাজ
-function addVideo() {
-    const title = document.getElementById("videoTitle").value;
-    const code = document.getElementById("videoCode").value;
-    const grid = document.getElementById("videoGrid");
-    const placeholder = document.getElementById("placeholderText");
+        function addVideo() {
+            const title = document.getElementById("videoTitle").value;
+            const code = document.getElementById("videoCode").value;
+            const grid = document.getElementById("videoGrid");
+            const placeholder = document.getElementById("placeholderText");
 
-    if (title === "" || code === "") {
-        alert("দয়া করে শিরোনাম এবং কোড দুটোই দিন!");
-        return;
-    }
+            if (title === "" || code === "") {
+                alert("দয়া করে শিরোনাম এবং কোড দুটোই দিন!");
+                return;
+            }
 
-    // প্রথমবার ভিডিও যোগ করলে লেখাটি মুছে যাবে
-    if (placeholder) {
-        placeholder.remove();
-    }
+            if (placeholder) {
+                placeholder.remove();
+            }
 
-    // নতুন ভিডিও কার্ড তৈরি
-    const card = document.createElement("div");
-    card.className = "video-card";
+            const card = document.createElement("div");
+            card.className = "video-card";
+            card.innerHTML = `
+                <div class="video-wrapper">${code}</div>
+                <div class="video-info"><h3>${title}</h3></div>
+            `;
 
-    card.innerHTML = `
-        <div class="video-wrapper">
-            ${code}
-        </div>
-        <div class="video-info">
-            <h3>${title}</h3>
-        </div>
-    `;
-
-    // গ্রিডে ভিডিও কার্ডটি যোগ করা
-    grid.appendChild(card);
-
-    // ইনপুট বক্স খালি করা এবং পপ-আপ বন্ধ করা
-    document.getElementById("videoTitle").value = "";
-    document.getElementById("videoCode").value = "";
-    closeModal();
-}
+            grid.appendChild(card);
+            document.getElementById("videoTitle").value = "";
+            document.getElementById("videoCode").value = "";
+            closeModal();
+        }
     </script>
 </body>
 </html>
