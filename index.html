@@ -191,5 +191,55 @@ input, textarea {
     </div>
 
     <script src="script.js"></script>
+    <script>
+    // পপ-আপ ওপেন করা
+function openModal() {
+    document.getElementById("videoModal").style.display = "block";
+}
+
+// পপ-আপ বন্ধ করা
+function closeModal() {
+    document.getElementById("videoModal").style.display = "none";
+}
+
+// ভিডিও যোগ করার মূল কাজ
+function addVideo() {
+    const title = document.getElementById("videoTitle").value;
+    const code = document.getElementById("videoCode").value;
+    const grid = document.getElementById("videoGrid");
+    const placeholder = document.getElementById("placeholderText");
+
+    if (title === "" || code === "") {
+        alert("দয়া করে শিরোনাম এবং কোড দুটোই দিন!");
+        return;
+    }
+
+    // প্রথমবার ভিডিও যোগ করলে লেখাটি মুছে যাবে
+    if (placeholder) {
+        placeholder.remove();
+    }
+
+    // নতুন ভিডিও কার্ড তৈরি
+    const card = document.createElement("div");
+    card.className = "video-card";
+
+    card.innerHTML = `
+        <div class="video-wrapper">
+            ${code}
+        </div>
+        <div class="video-info">
+            <h3>${title}</h3>
+        </div>
+    `;
+
+    // গ্রিডে ভিডিও কার্ডটি যোগ করা
+    grid.appendChild(card);
+
+    // ইনপুট বক্স খালি করা এবং পপ-আপ বন্ধ করা
+    document.getElementById("videoTitle").value = "";
+    document.getElementById("videoCode").value = "";
+    closeModal();
+}
+    </script>
 </body>
 </html>
