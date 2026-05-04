@@ -3,37 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আমার ভিডিও কালেকশন</title>
+    <title>প্রাইভেট ভিডিও হাব</title>ৎ
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0b0e11; /* প্রিমিয়াম ডার্ক ব্যাকগ্রাউন্ড */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* নেভিগেশন বার */
+header {
+    background-color: #1a1d21;
+    padding: 15px 5%;
+    border-bottom: 2px solid #ff9000;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    background-color: #ff9000;
+    color: black;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.upload-btn { background-color: #ff9000; color: black; }
+.code-btn { background-color: #333; color: white; }
+
+/* ভিডিও গ্রিড লেআউট */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 30px 5%;
+}
+
+.video-card {
+    background-color: #1a1d21;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    border: 1px solid #2a2d31;
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+    border-color: #ff9000;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+
+.video-info {
+    padding: 12px;
+}
+
+.video-info h3 {
+    font-size: 16px;
+    color: #efefef;
+}
+
+/* পপ-আপ ফর্ম (Modal) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    background-color: #1a1d21;
+    margin: 10% auto;
+    padding: 25px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: #0b0e11;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff9000;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.close {
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+    color: #999;
+}
+
+/* মোবাইলের জন্য রেসপনসিভ */
+@media (max-width: 600px) {
+    .logo { font-size: 20px; }
+    .btn { padding: 8px 10px; font-size: 12px; }
+}
+   </style>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
 </head>
 <body>
 
     <header>
-        <div class="navbar">
-            <div class="logo">আমার<span>ভিডিও</span></div>
-            <div class="actions">
-                <button class="btn add-btn" onclick="openModal()">+ Add Video</button>
+        <div class="nav-container">
+            <div class="logo">MY<span>VIDEOS</span></div>
+            <div class="header-actions">
+                <button class="btn upload-btn" onclick="openModal()">+ Add Video</button>
                 <button class="btn code-btn" onclick="openModal()">+ Add </> Code</button>
             </div>
         </div>
     </header>
 
-    <main>
+    <main class="content">
         <div class="video-grid" id="videoGrid">
-            <!-- এখানে ভিডিওগুলো অটোমেটিক যোগ হবে -->
-            <p id="noVideoMsg">কোনো ভিডিও নেই। উপরের বাটন থেকে যোগ করুন।</p>
+            <!-- এখানে ভিডিওগুলো প্রদর্শিত হবে -->
+            <div id="placeholderText" style="grid-column: 1/-1; text-align: center; margin-top: 50px; color: #555;">
+                <h2>কোনো ভিডিও নেই! ওপরে বাটন ব্যবহার করে যোগ করুন।</h2>
+            </div>
         </div>
     </main>
 
-    <!-- ভিডিও যোগ করার ফর্ম (Modal) -->
+    <!-- ভিডিও যোগ করার পপ-আপ (Modal) -->
     <div id="videoModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>নতুন ভিডিও যোগ করুন</h2>
-            <input type="text" id="videoTitle" placeholder="ভিডিওর শিরোনাম">
-            <textarea id="videoEmbed" placeholder="ভিডিওর এমবেড কোড (<iframe>) অথবা লিঙ্ক দিন"></textarea>
-            <button class="submit-btn" onclick="addNewVideo()">আপলোড করুন</button>
+            <h2 style="color: #ff9000; margin-bottom: 20px;">নতুন ভিডিও যোগ করুন</h2>
+            <input type="text" id="videoTitle" placeholder="ভিডিওর শিরোনাম (Title)">
+            <textarea id="videoCode" rows="5" placeholder="ভিডিওর এমবেড কোড (<iframe>) এখানে পেস্ট করুন"></textarea>
+            <button class="submit-btn" onclick="addVideo()">আপলোড সম্পন্ন করুন</button>
         </div>
     </div>
 
