@@ -3,61 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আমার ভিডিও ড্রাইভ</title>
+    <title>My Video Drive</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .drive-card { transition: all 0.3s ease; border: 1px solid #e0e0e0; }
+        .drive-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body>
 
-    <!-- নেভিগেশন বার -->
-    <nav class="bg-white shadow-sm p-4 sticky top-0 z-10">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold text-blue-600"><i class="fas fa-cloud-upload-alt mr-2"></i>My Video Drive</h1>
-            <div class="text-gray-500"><i class="fas fa-user-circle text-2xl"></i></div>
+    <!-- Header (gggffrg.png এর মতো) -->
+    <nav class="bg-white p-4 flex justify-between items-center px-8 border-b">
+        <div class="flex items-center text-blue-600 font-bold text-xl">
+            <i class="fas fa-cloud-upload-alt mr-2 text-2xl"></i>
+            <span>My Video Drive</span>
+        </div>
+        <div class="text-gray-600 cursor-pointer">
+            <i class="fas fa-user-circle text-3xl"></i>
         </div>
     </nav>
 
-    <div class="max-w-5xl mx-auto p-4">
+    <div class="max-w-5xl mx-auto mt-10 p-4">
         
-        <!-- ভিডিও আপলোড সেকশন -->
-        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
-            <h2 class="text-lg font-semibold mb-4">নতুন ভিডিও যোগ করুন</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" id="videoTitle" placeholder="ভিডিওর শিরোনাম" class="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <input type="text" id="videoLink" placeholder="ভিডিও লিঙ্ক (URL)" class="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <!-- Upload Section (gggffrg.png ডিজাইন অনুযায়ী) -->
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-10">
+            <h2 class="text-xl font-bold text-gray-800 mb-6">নতুন ভিডিও যোগ করুন</h2>
+            <div class="flex flex-col md:flex-row gap-4">
+                <input type="text" id="videoTitle" placeholder="ভিডিওর শিরোনাম" 
+                    class="flex-1 border border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500 transition">
+                <input type="text" id="videoLink" placeholder="ভিডিও লিঙ্ক (URL)" 
+                    class="flex-1 border border-gray-300 p-3 rounded-lg outline-none focus:border-blue-500 transition">
             </div>
-            <button onclick="addVideo()" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full md:w-auto">
+            <button onclick="addVideo()" class="mt-6 bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition shadow-md">
                 সংরক্ষণ করুন
             </button>
         </div>
 
-        <!-- সংরক্ষিত ভিডিও লিস্ট -->
-        <h2 class="text-xl font-semibold mb-4 text-gray-700">আপনার ভিডিওসমূহ</h2>
-        <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- ভিডিও কার্ড এখানে যুক্ত হবে -->
+        <!-- Video List Header -->
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 px-2">আপনার ভিডিওসমূহ</h2>
+        
+        <!-- Video Grid -->
+        <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- ভিডিওগুলো এখানে জমা হবে -->
         </div>
     </div>
 
     <script>
-        // ভিডিও ডেটা সংরক্ষণের জন্য অ্যারে (প্রাথমিকভাবে কিছু স্যাম্পল ডেটা)
         let videos = JSON.parse(localStorage.getItem('myVideos')) || [];
 
         function displayVideos() {
             const grid = document.getElementById('videoGrid');
             grid.innerHTML = '';
 
+            if (videos.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">কোন ভিডিও পাওয়া যায়নি। নতুন ভিডিও যোগ করুন।</p>`;
+            }
+
             videos.forEach((video, index) => {
                 grid.innerHTML += `
-                    <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition border border-gray-100">
-                        <div class="aspect-video bg-black">
-                            <video class="w-full h-full" controls>
+                    <div class="drive-card bg-white rounded-2xl overflow-hidden shadow-sm">
+                        <div class="aspect-video bg-gray-200 relative group">
+                            <video class="w-full h-full object-cover" controls>
                                 <source src="${video.url}" type="video/mp4">
                             </video>
                         </div>
-                        <div class="p-4 flex justify-between items-center">
-                            <span class="font-medium text-gray-800 truncate">${video.title}</span>
-                            <button onclick="deleteVideo(${index})" class="text-red-500 hover:text-red-700">
-                                <i class="fas fa-trash"></i>
+                        <div class="p-4 flex justify-between items-center bg-white">
+                            <div class="flex items-center space-x-3 overflow-hidden">
+                                <i class="fas fa-video text-blue-500"></i>
+                                <span class="font-medium text-gray-700 truncate">${video.title}</span>
+                            </div>
+                            <button onclick="deleteVideo(${index})" class="text-gray-400 hover:text-red-500 transition ml-2">
+                                <i class="fas fa-ellipsis-v"></i>
                             </button>
                         </div>
                     </div>
@@ -66,33 +84,31 @@
         }
 
         function addVideo() {
-            const title = document.getElementById('videoTitle').value;
-            const url = document.getElementById('videoLink').value;
+            const titleInput = document.getElementById('videoTitle');
+            const urlInput = document.getElementById('videoLink');
 
-            if (title && url) {
-                videos.push({ title, url });
+            if (titleInput.value && urlInput.value) {
+                videos.push({ title: titleInput.value, url: urlInput.value });
                 localStorage.setItem('myVideos', JSON.stringify(videos));
                 displayVideos();
                 
-                // ইনপুট ফিল্ড খালি করা
-                document.getElementById('videoTitle').value = '';
-                document.getElementById('videoLink').value = '';
+                // Clear inputs
+                titleInput.value = '';
+                urlInput.value = '';
             } else {
-                alert("দয়া করে শিরোনাম এবং লিঙ্ক দুটোই দিন।");
+                alert("দয়া করে শিরোনাম এবং সঠিক লিঙ্ক প্রদান করুন।");
             }
         }
 
         function deleteVideo(index) {
-            if(confirm('আপনি কি এই ভিডিওটি মুছে ফেলতে চান?')) {
+            if(confirm('ভিডিওটি মুছে ফেলতে চান?')) {
                 videos.splice(index, 1);
                 localStorage.setItem('myVideos', JSON.stringify(videos));
                 displayVideos();
             }
         }
 
-        // পেজ লোড হলে ভিডিওগুলো দেখাবে
         displayVideos();
     </script>
-
 </body>
 </html>
