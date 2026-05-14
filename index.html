@@ -3,215 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>প্রাইভেট ভিডিও হাব</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #0b0e11;
-            color: white;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        header {
-            background-color: #1a1d21;
-            padding: 15px 5%;
-            border-bottom: 2px solid #ff9000;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .logo span {
-            background-color: #ff9000;
-            color: black;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 4px;
-        }
-
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        .upload-btn { background-color: #ff9000; color: black; }
-        .code-btn { background-color: #333; color: white; }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 30px 5%;
-        }
-
-        .video-card {
-            background-color: #1a1d21;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid #2a2d31;
-        }
-
-        .video-card:hover {
-            transform: scale(1.05);
-            border-color: #ff9000;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-        }
-
-        .video-info {
-            padding: 12px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9);
-        }
-
-        .modal-content {
-            background-color: #1a1d21;
-            margin: 10% auto;
-            padding: 25px;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 12px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: #0b0e11;
-            border: 1px solid #333;
-            color: white;
-            border-radius: 5px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #ff9000;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close {
-            float: right;
-            font-size: 30px;
-            cursor: pointer;
-            color: #999;
-        }
-
-        @media (max-width: 600px) {
-            .logo { font-size: 20px; }
-            .btn { padding: 8px 10px; font-size: 12px; }
-        }
-    </style>
+    <title>আমার ভিডিও ড্রাইভ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="bg-gray-50 font-sans">
 
-    <header>
-        <div class="nav-container">
-            <div class="logo">MY<span>VIDEOS</span></div>
-            <div class="header-actions">
-                <button class="btn upload-btn" onclick="openModal()">+ Add Video</button>
-                <button class="btn code-btn" onclick="openModal()">+ Add </> Code</button>
-            </div>
+    <!-- নেভিগেশন বার -->
+    <nav class="bg-white shadow-sm p-4 sticky top-0 z-10">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600"><i class="fas fa-cloud-upload-alt mr-2"></i>My Video Drive</h1>
+            <div class="text-gray-500"><i class="fas fa-user-circle text-2xl"></i></div>
         </div>
-    </header>
+    </nav>
 
-    <main class="content">
-        <div class="video-grid" id="videoGrid">
-            <div id="placeholderText" style="grid-column: 1/-1; text-align: center; margin-top: 50px; color: #555;">
-                <h2>কোনো ভিডিও নেই! ওপরে বাটন ব্যবহার করে যোগ করুন।</h2>
+    <div class="max-w-5xl mx-auto p-4">
+        
+        <!-- ভিডিও আপলোড সেকশন -->
+        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+            <h2 class="text-lg font-semibold mb-4">নতুন ভিডিও যোগ করুন</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" id="videoTitle" placeholder="ভিডিওর শিরোনাম" class="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="text" id="videoLink" placeholder="ভিডিও লিঙ্ক (URL)" class="border p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
+            <button onclick="addVideo()" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full md:w-auto">
+                সংরক্ষণ করুন
+            </button>
         </div>
-    </main>
 
-    <div id="videoModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 style="color: #ff9000; margin-bottom: 20px;">নতুন ভিডিও যোগ করুন</h2>
-            <input type="text" id="videoTitle" placeholder="ভিডিওর শিরোনাম (Title)">
-            <textarea id="videoCode" rows="5" placeholder="ভিডিওর এমবেড কোড (<iframe>) এখানে পেস্ট করুন"></textarea>
-            <button class="submit-btn" onclick="addVideo()">আপলোড সম্পন্ন করুন</button>
+        <!-- সংরক্ষিত ভিডিও লিস্ট -->
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">আপনার ভিডিওসমূহ</h2>
+        <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- ভিডিও কার্ড এখানে যুক্ত হবে -->
         </div>
     </div>
 
     <script>
-        function openModal() {
-            document.getElementById("videoModal").style.display = "block";
-        }
+        // ভিডিও ডেটা সংরক্ষণের জন্য অ্যারে (প্রাথমিকভাবে কিছু স্যাম্পল ডেটা)
+        let videos = JSON.parse(localStorage.getItem('myVideos')) || [];
 
-        function closeModal() {
-            document.getElementById("videoModal").style.display = "none";
+        function displayVideos() {
+            const grid = document.getElementById('videoGrid');
+            grid.innerHTML = '';
+
+            videos.forEach((video, index) => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition border border-gray-100">
+                        <div class="aspect-video bg-black">
+                            <video class="w-full h-full" controls>
+                                <source src="${video.url}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="p-4 flex justify-between items-center">
+                            <span class="font-medium text-gray-800 truncate">${video.title}</span>
+                            <button onclick="deleteVideo(${index})" class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
         function addVideo() {
-            const title = document.getElementById("videoTitle").value;
-            const code = document.getElementById("videoCode").value;
-            const grid = document.getElementById("videoGrid");
-            const placeholder = document.getElementById("placeholderText");
+            const title = document.getElementById('videoTitle').value;
+            const url = document.getElementById('videoLink').value;
 
-            if (title === "" || code === "") {
-                alert("দয়া করে শিরোনাম এবং কোড দুটোই দিন!");
-                return;
+            if (title && url) {
+                videos.push({ title, url });
+                localStorage.setItem('myVideos', JSON.stringify(videos));
+                displayVideos();
+                
+                // ইনপুট ফিল্ড খালি করা
+                document.getElementById('videoTitle').value = '';
+                document.getElementById('videoLink').value = '';
+            } else {
+                alert("দয়া করে শিরোনাম এবং লিঙ্ক দুটোই দিন।");
             }
-
-            if (placeholder) {
-                placeholder.remove();
-            }
-
-            const card = document.createElement("div");
-            card.className = "video-card";
-            card.innerHTML = `
-                <div class="video-wrapper">${code}</div>
-                <div class="video-info"><h3>${title}</h3></div>
-            `;
-
-            grid.appendChild(card);
-            document.getElementById("videoTitle").value = "";
-            document.getElementById("videoCode").value = "";
-            closeModal();
         }
+
+        function deleteVideo(index) {
+            if(confirm('আপনি কি এই ভিডিওটি মুছে ফেলতে চান?')) {
+                videos.splice(index, 1);
+                localStorage.setItem('myVideos', JSON.stringify(videos));
+                displayVideos();
+            }
+        }
+
+        // পেজ লোড হলে ভিডিওগুলো দেখাবে
+        displayVideos();
     </script>
+
 </body>
 </html>
