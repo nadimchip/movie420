@@ -1,11 +1,33 @@
-<!DOCTYPE html?
+<!DOCTYPE html>
 <html>
 <head>
-      <title> amar protom website</title>
+    <title>আমার প্রজেক্ট</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: blue;
+        }
+        button {
+            padding: 10px 20px;
+        }
+    </style>
 </head>
 <body>
-      <h1>welcome</h1>
-      <p>my name is nadim</p>
-      <a href="https://www.google.com'>google</a>
+
+    <h1 id="count">0</h1>
+    <button onclick="increase()">বৃদ্ধি করুন (+)</button>
+
+    <script>
+        let count = 0;
+        function increase() {
+            count = count + 1;
+            document.getElementById("count").innerText = count;
+        }
+    </script>
 </body>
 </html>
