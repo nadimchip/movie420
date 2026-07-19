@@ -12,32 +12,34 @@
             font-family: Arial, sans-serif;
         }
 
-        .hero {
-            height: 100vh;
+        .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
             padding: 20px;
         }
 
-        /* লাল বর্ডারের বক্সের জন্য স্টাইল */
-        .image-container {
-            border: 2px solid red;
-            width: 80%; /* আপনার পছন্দমতো সাইজ কমানো বাড়ানো যাবে */
-            height: 60%;
+        /* নীল বক্সের স্টাইল - এখানে ছবি সেট করা হয়েছে */
+        .blue-box {
+            border: 2px solid blue;
+            width: 80%;
+            height: 300px; /* আপনার প্রয়োজন অনুযায়ী হাইট পরিবর্তন করতে পারেন */
+            background-image: url('eisamay_2026-01-05_0oc1dtpg_earth.avif');
+            background-size: cover;
+            background-position: center;
             margin-bottom: 20px;
-            overflow: hidden;
+        }
+
+        /* লাল বক্সের স্টাইল */
+        .red-box {
+            border: 2px solid red;
+            width: 80%;
+            height: 200px; /* আপনার প্রয়োজন অনুযায়ী হাইট পরিবর্তন করতে পারেন */
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* ছবিটি বক্সের ভেতরে সুন্দরভাবে বসে যাবে */
         }
 
         .content button {
@@ -53,10 +55,13 @@
 </head>
 <body>
 
-    <section class="hero">
-        <!-- লাল বর্ডারের ভেতরে পৃথিবী ছবিটি -->
-        <div class="image-container">
-            <img src="eisamay_2026-01-05_0oc1dtpg_earth.avif" alt="পৃথিবী">
+    <section class="container">
+        <!-- নীল বক্স (ছবিসহ) -->
+        <div class="blue-box"></div>
+        
+        <!-- লাল বক্স -->
+        <div class="red-box">
+            <p>পৃথিবী</p>
         </div>
         
         <div class="content">
